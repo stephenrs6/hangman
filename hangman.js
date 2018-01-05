@@ -1,48 +1,61 @@
 // dependency for inquirer npm package
 var inquirer = require("inquirer");
 
-var word
+var words = ['puppy', 'coffee', 'scissor', 'grass', 'pretzel', 'christmas', 'orchestra', 'psychology', 'javascript'];
 var dashArr
 var guessesLeft
 
 
 // provide blank spaces to fill out
 // for (var i = 0; i < word.length; i++) {
+// function Word(word) {
+//     this.word = word
+// }
+// function Letter() {
 
+// }
 
 function hangman(answers) {
     // console.log(answers);
 
     var userInput = answers.letter;
     // console.log(userInput);
-var guess = false;
+    var guess = false;
     for (var i = 0; i < word.length; i++) {
         // if the user guess matches the
         // check letter against the word in array
         if (userInput === word[i]) {
             // if guess is correct replace dash with letter in the correct spot
             dashArr.splice(i, 1, userInput);
-            console.log(true, word[i]);
             guess = true;
-        } else {
-            console.log(false, word[i]);
         }
         // letter in the word
         // print true 
 
         // otherwise print false
     }
-    if (guess == false){
+    if (guess == false) {
         guessesLeft--;
-        console.log("Guesses Left ", guessesLeft);
+        console.log("Guesses Left: ", guessesLeft);
     }
-    if (guessesLeft === 0){
+    if (guessesLeft === 0) {
         console.log("You have lost.");
         resetGame();
     } else {
-        prompt();
+
+        if (!dashArr.includes("_")) {
+            console.log(dashArr);
+            console.log("You have won!");
+            resetGame();
+
+        } else {
+            prompt();
+        }
+
     }
-    
+
+
+
     // console.log(dashArr);
     // correct guess or incorrect guess
 
@@ -61,9 +74,9 @@ function prompt() {
     ]).then(hangman);
 }
 function resetGame() {
-    word = "coffee"
+    word = words[Math.floor(Math.random()*words.length)];
     dashArr = [];
-    guessesLeft = 3;
+    guessesLeft = 9;
     for (var i = 0; i < word.length; i++) {
         // console.log(word[i]);
         dashArr.push("_");
